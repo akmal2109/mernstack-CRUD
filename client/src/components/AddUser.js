@@ -1,52 +1,88 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const AddUser = () => {
+  //   add user
+  const navigate = useNavigate();
+
+  const [adduser, setAddUser] = useState({
+    userName: "",
+    email: "",
+    tel: "",
+  });
+
+  const handleChange = (prop) => (e) => {
+    setAddUser({ ...adduser, [prop]: e.target.value });
+  };
+  const { userName, email, tel } = adduser;
+  const Submit = async (e) => {
+    try {
+      e.preventDefault();
+
+      let add = await axios.post("http://localhost:5005/user/add", {
+        userName,
+        email,
+        tel,
+      });
+      if (add.data.success === true) {
+        setAddUser({ userName: "", email: "", tel: "" });
+        navigate("/");
+        alert("qoshildi");
+      }
+      console.log(add);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
-      {/* <!-- Button trigger modal --> */}
-      <button
-        type="button"
-        class="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
-      >
-        Qoshish
-      </button>
+      <div className="container">
+        <div className="row">
+          <div className="col">
+            <form className="row g-3 needs-validation" noValidate>
+              <div className="col-md-12">
+                <input
+                  onChange={handleChange("userName")}
+                  type="text"
+                  className="form-control"
+                  id="validationCustom01"
+                  placeholder="ismni yozing..."
+                  required
+                />
+              </div>
+              <div className="col-md-12">
+                <input
+                  onChange={handleChange("email")}
+                  type="text"
+                  className="form-control"
+                  id="validationCustom02"
+                  required
+                  placeholder="email yozing..."
+                />
+              </div>
+              <div className="col-md-12">
+                <input
+                  onChange={handleChange("tel")}
+                  type="number"
+                  className="form-control"
+                  id="validationCustom03"
+                  required
+                  placeholder="telni yozing..."
+                />
+              </div>
 
-      {/* <!-- Modal --> */}
-      <div
-        class="modal fade  modal-centered"
-        id="exampleModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">
-                Modal title
-              </h1>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">...</div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button type="button" class="btn btn-primary">
-                Save changes
-              </button>
-            </div>
+              <div className="col-12">
+                <button
+                  onClick={Submit}
+                  className="btn btn-primary"
+                  type="submit"
+                >
+                  Submit form
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
