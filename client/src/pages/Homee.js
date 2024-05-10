@@ -7,6 +7,10 @@ export const Homee = () => {
   const handleClick = () => {
     navigate("/add");
   };
+  const UpdateUser = (elem) => {
+    localStorage.setItem("user", JSON.stringify(elem));
+    navigate(`/updateuser/${elem._id}`);
+  };
   let newArr = [];
   const [baza1, setBaza] = useState([]);
   for (let i = baza1.length - 1; i >= 0; i--) {
@@ -20,6 +24,22 @@ export const Homee = () => {
     }
     getAll();
   }, []);
+
+  // delet user
+
+  const Delete = async (id) => {
+    try {
+      let res = await axios.delete(
+        `http://localhost:5005/user/deleteuser/${id}  `
+      );
+      if (res.data.success === true) {
+        alert("delet user");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    window.location.reload(false);
+  };
   return (
     <div>
       {" "}
@@ -71,10 +91,20 @@ export const Homee = () => {
                       <th scope="col">{el.tel}</th>
                       <th scope="col">
                         {" "}
-                        <div className="btn btn-info">update</div>{" "}
+                        <div
+                          className="btn btn-info"
+                          onClick={() => UpdateUser(el)}
+                        >
+                          update
+                        </div>{" "}
                       </th>
                       <th scope="col">
-                        <div className="btn btn-info">delet</div>
+                        <div
+                          className="btn btn-danger"
+                          onClick={() => Delete(el._id)}
+                        >
+                          delet
+                        </div>
                       </th>
                     </tr>
                   );

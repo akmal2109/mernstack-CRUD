@@ -113,7 +113,7 @@ const deletUser = async (req, res) => {
     }
     await userModel.findByIdAndDelete(deletID);
     res.status(200).send({
-      success: false,
+      success: true,
       message: "delet user",
     });
   } catch (error) {

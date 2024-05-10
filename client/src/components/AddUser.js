@@ -38,11 +38,14 @@ export const AddUser = () => {
 
   return (
     <>
-      <div className="container">
-        <div className="row">
-          <div className="col">
-            <form className="row g-3 needs-validation" noValidate>
-              <div className="col-md-12">
+      <div className="container ">
+        <div className="row justify-content-center align-items-center align-self-center mt-5">
+          <div className="col-md-auto mt-5">
+            <form
+              className="row g-3 justify-content-center needs-validation"
+              noValidate
+            >
+              <div className="col-md-6">
                 <input
                   onChange={handleChange("userName")}
                   type="text"
@@ -52,7 +55,8 @@ export const AddUser = () => {
                   required
                 />
               </div>
-              <div className="col-md-12">
+              <div className="w-100"></div>
+              <div className="col-md-6">
                 <input
                   onChange={handleChange("email")}
                   type="text"
@@ -62,7 +66,8 @@ export const AddUser = () => {
                   placeholder="email yozing..."
                 />
               </div>
-              <div className="col-md-12">
+              <div className="w-100"></div>
+              <div className="col-md-6">
                 <input
                   onChange={handleChange("tel")}
                   type="number"
@@ -72,7 +77,6 @@ export const AddUser = () => {
                   placeholder="telni yozing..."
                 />
               </div>
-
               <div className="col-12">
                 <button
                   onClick={Submit}
