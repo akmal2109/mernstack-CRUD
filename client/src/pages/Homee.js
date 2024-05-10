@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { FaSearch } from "react-icons/fa";
 export const Homee = () => {
   const navigate = useNavigate();
   const handleClick = () => {
@@ -40,6 +40,10 @@ export const Homee = () => {
     }
     window.location.reload(false);
   };
+
+  // qidiruv
+  const [search, setSearch] = useState("");
+
   return (
     <div>
       {" "}
@@ -49,6 +53,30 @@ export const Homee = () => {
             <h2 className="h2"> MERNSTACK CRUDD </h2>
           </div>
           <div className="row mb-3">
+            <div className="col">
+              <div class="row">
+                <div class="col-md-5 mx-auto">
+                  <div class="input-group">
+                    <input
+                      class="form-control border-end-0 border rounded-pill"
+                      type="text"
+                      name="search"
+                      id="example-search-input"
+                      onChange={(e) => setSearch(e.target.value)}
+                      placeholder="name search..."
+                    />
+                    <span class="input-group-append">
+                      <button
+                        class="btn btn-outline-secondary bg-white border-bottom-0 border rounded-pill ms-n5"
+                        type="button"
+                      >
+                        <FaSearch />
+                      </button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div
               className="col"
               style={{ display: "flex", justifyContent: "flex-end" }}
@@ -77,38 +105,45 @@ export const Homee = () => {
                 </tr>
               </thead>
               <tbody className="table-primary">
-                {newArr.map((el, index) => {
-                  return (
-                    <tr key={index}>
-                      <th
-                        scope="col"
-                        style={{ background: "black", color: "white" }}
-                      >
-                        {index + 1}
-                      </th>
-                      <th scope="col">{el.userName}</th>
-                      <th scope="col">{el.email}</th>
-                      <th scope="col">{el.tel}</th>
-                      <th scope="col">
-                        {" "}
-                        <div
-                          className="btn btn-info"
-                          onClick={() => UpdateUser(el)}
+                {newArr
+
+                  .filter((item) => {
+                    return search.toLowerCase() === " "
+                      ? item
+                      : item.userName.toLowerCase().includes(search);
+                  })
+                  .map((el, index) => {
+                    return (
+                      <tr key={index}>
+                        <th
+                          scope="col"
+                          style={{ background: "black", color: "white" }}
                         >
-                          update
-                        </div>{" "}
-                      </th>
-                      <th scope="col">
-                        <div
-                          className="btn btn-danger"
-                          onClick={() => Delete(el._id)}
-                        >
-                          delet
-                        </div>
-                      </th>
-                    </tr>
-                  );
-                })}
+                          {index + 1}
+                        </th>
+                        <th scope="col">{el.userName}</th>
+                        <th scope="col">{el.email}</th>
+                        <th scope="col">{el.tel}</th>
+                        <th scope="col">
+                          {" "}
+                          <div
+                            className="btn btn-success"
+                            onClick={() => UpdateUser(el)}
+                          >
+                            O'zgartirish
+                          </div>{" "}
+                        </th>
+                        <th scope="col">
+                          <div
+                            className="btn btn-danger"
+                            onClick={() => Delete(el._id)}
+                          >
+                            O'chirish
+                          </div>
+                        </th>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
           </div>

@@ -4,9 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 export const UpdateUser = () => {
   const { id } = useParams();
-  // const [userName, setUserName] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [tel, setTel] = useState("");
+
   const navigate = useNavigate();
   let localUser = JSON.parse(localStorage.getItem("user"));
   const [user, setUser] = useState({
