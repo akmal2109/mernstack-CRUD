@@ -47,6 +47,7 @@ export const UpdateUser = () => {
                 <input
                   onChange={changeHandler}
                   type="text"
+                  name="userName"
                   className="form-control"
                   value={user.userName}
                   id="validationCustom03"
@@ -60,6 +61,7 @@ export const UpdateUser = () => {
                   onChange={changeHandler}
                   value={user.email}
                   type="text"
+                  name="email"
                   className="form-control"
                   id="validationCustom04"
                   required
@@ -70,6 +72,7 @@ export const UpdateUser = () => {
               <div className="col-md-6">
                 <input
                   type="number"
+                  name="tel"
                   onChange={changeHandler}
                   value={user.tel}
                   className="form-control"
